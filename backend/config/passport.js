@@ -1,4 +1,4 @@
-var bCrypt = require('bcrypt-nodejs');
+const bCrypt = require('bcrypt-nodejs');
 const passportJWT = require("passport-jwt");
 const JWTStrategy   = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
@@ -31,7 +31,7 @@ module.exports = (passport, user) => {
     opts.secretOrKey = 'sp@c3f1t';
 
     passport.use(new JWTStrategy(opts, function(jwt_payload, done) {
-        User.findOne({ where: {id: jwt_payload.sub}}) 
+        User.findOne({ where: {id: jwt_payload}}) 
         .then(user => {
             if (user) {
                 return done(null, user);
@@ -41,23 +41,6 @@ module.exports = (passport, user) => {
         })
     }));
 
-    /*
-    passport.use(new JWTStrategy({
-        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-        secretOrKey   : 'sp@c3f1t'
-    },
-        function (jwtPayload, cb) {
-            return User.findById(jwtPayload.id)
-                .then(user => {
-                    return cb(null, user);
-                })
-                .catch(err => {
-                    return cb(err);
-                });
-        }
-    ));
-
-    */
     passport.use('local-signup', new LocalStrategy(
         {
             usernameField: 'email',
@@ -70,7 +53,7 @@ module.exports = (passport, user) => {
 
             User.findOne({
                 where: {
-                    email: email
+                    email
                 }
             }).then(function(user) {
                 if (user) {
@@ -97,7 +80,10 @@ module.exports = (passport, user) => {
              
                 }
              
-            });
+            })
+            .catch(err => {
+                console.error('__error', err)
+            })
         }
     ));
 

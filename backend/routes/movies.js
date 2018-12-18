@@ -4,8 +4,12 @@ var models = require('../models');
 var passport = require('passport');
 
 router.get('/', (req, res) => {
-    res.json(200, {
-        hello: 'world'
+    models.Movie.findAll()
+    .then(movies => {
+        res.status(200).json({
+            error: false,
+            data: movies
+        })
     })
 });
 

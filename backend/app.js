@@ -16,16 +16,16 @@ var passport   = require('passport')
 var session    = require('express-session')
 var bodyParser = require('body-parser')
 
+app.use(cookieParser());
+app.use(session({ secret: 'spacecat', resave: true, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({ secret: 'spacecat', resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(sequelize);
 
 app.use(logger('dev'));
-app.use(cookieParser());
 
 // Passport config
 require('./config/passport')(passport, models.User);
@@ -48,7 +48,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err);
 });
 
 module.exports = app;
