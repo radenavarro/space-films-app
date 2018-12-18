@@ -3,24 +3,37 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var sequelize = require('sequelize');
+
+var models = require('./models');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var moviesRouter = require('./routes/movies');
+var actorsRouter = require('./routes/actors');
 
 var app = express();
+var passport   = require('passport')
+var session    = require('express-session')
+var bodyParser = require('body-parser')
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(session({ secret: 'spacecat', resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(sequelize);
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
+// Passport config
+require('./config/passport')(passport, models.User);
+
+// Routing
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/movies', passport.authenticate('jwt', { session: false }), moviesRouter);
+app.use('/actors', passport.authenticate('jwt', { session: false }), actorsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
