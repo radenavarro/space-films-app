@@ -30,3 +30,16 @@ Este es el modelo de la base de datos:
 ![database model](https://resources.spacefit.app/static/test/spacefit-test-db.png)
 
 Como añadido opcional, se podrá crear una ficha de actor en la que se listarán todas sus películas.
+
+## Backend
+
+En la parte de backend, se han dejado preparados todas las migraciones, modelos y seeders necesarios, así como algunas rutas (protegidas y públicas) con ejemplos sobre cómo usar los modelos. 
+
+### Login y Registro
+
+La funcionalidad de login y registro está lista para funcionar. Se usan JWT que se deben enviar como en un header en cada petición, de la siguiente manera:
+```
+Authorization: Bearer {token}
+```
+
+Las rutas para login y registro son `POST  /login` y `POST /register` respectivamente. Login espera recibir dos parámetros con nombre `email` (correo electrónico) y `password` (contraseña), y registro espera recibir tres parámetros con nombre `name` (nombre del usuario), `email` (correo electrónico) y `password` (contraseña)
