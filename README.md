@@ -57,6 +57,8 @@ npm run init
 
 Una vez ejecutado este comando la base de datos habrá sido montada y rellenada con datos de forma automática. Esto podéis comprobar con cualquier software que os permita ver vuestra base de datos o haciendo una consulta (habiendo iniciado sesión) a la ruta `localhost:4000/movies`
 
+### Inicio del servidor
+
 Para iniciar el servidor se tendrá que ejecutar el siguiente comando: 
 ```
 npm start
