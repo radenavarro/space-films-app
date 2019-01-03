@@ -72,6 +72,8 @@ y después podremos ejecutar simplemente:
 nodemon
 ```
 
+El servidor estará escuchando en el puerto **4000**.
+
 ## Frontend
 
 En la parte de frontend, al contrario que en la de backend, no hay nada preparado. Todo se tendrá que hacer desde cero, partiendo de una plantilla básica creada con `create-react-app`. El diseño se tendrá en cuenta, pero no será lo principal, así que recomendamos centrarse en la funcionalidad y utilizar alguna librería de estilos.
