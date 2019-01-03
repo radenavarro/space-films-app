@@ -5,6 +5,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Genre.associate = function(models) {
     // associations can be defined here
+    Genre.belongsToMany(models.Movie, {
+      through: models.MovieGenres,
+      foreignKey: 'genreId',
+      otherKey: 'movieId',
+    })
   };
   return Genre;
 };

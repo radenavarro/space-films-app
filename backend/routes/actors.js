@@ -4,7 +4,13 @@ var models = require('../models');
 var passport = require('passport');
 
 router.get('/', (req, res) => {
-    models.Actor.findAll()
+    models.Actor.findAll({
+        include: [
+            {
+                model: models.Movie
+            }
+        ]
+    })
     .then(actors => {
         res.status(200).json({
             error: false,

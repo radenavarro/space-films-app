@@ -31,7 +31,10 @@ app.use(logger('dev'));
 require('./config/passport')(passport, models.User);
 
 // Routing
+  // Public route
 app.use('/', indexRouter);
+
+  // Protected route (login required)
 app.use('/movies', passport.authenticate('jwt', { session: false }), moviesRouter);
 app.use('/actors', passport.authenticate('jwt', { session: false }), actorsRouter);
 
