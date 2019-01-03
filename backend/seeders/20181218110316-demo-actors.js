@@ -9,7 +9,7 @@ module.exports = {
     for (let i = 0; i < 200; i++) {
       let gender = genders[faker.random.number(1)];
       let actor = {
-        name: faker.name.firstName(),
+        name: `${faker.name.firstName()} ${faker.name.lastName()}`,
         gender: gender,
         picture: `avatar-${gender}.svg`,
       }
