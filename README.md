@@ -43,3 +43,33 @@ Authorization: Bearer {token}
 ```
 
 Las rutas para login y registro son `POST  /login` y `POST /register` respectivamente. Login espera recibir dos parámetros con nombre `email` (correo electrónico) y `password` (contraseña), y registro espera recibir tres parámetros con nombre `name` (nombre del usuario), `email` (correo electrónico) y `password` (contraseña)
+
+### Modelos y migraciones
+
+El servidor usa la librería **Sequelize** para hacer consultas a la base de datos. Funciona de forma muy parecida a otros ORM como Mongoose, Eloquent...
+
+Se puede encontrar la documentación haciendo click [aquí](http://docs.sequelizejs.com/):
+
+Para montar la base de datos con registros de prueba tendremos que ir al archivo de configuración `/config/config.js` y cambiarlo para coincidir con las credenciales de la máquina local. Después, habrá que ejecutar el siguiente comando:
+```
+npm run init
+```
+
+Una vez ejecutado este comando la base de datos habrá sido montada y rellenada con datos de forma automática. Esto podéis comprobar con cualquier software que os permita ver vuestra base de datos o haciendo una consulta (habiendo iniciado sesión) a la ruta `localhost:4000/movies`
+
+Para iniciar el servidor se tendrá que ejecutar el siguiente comando: 
+```
+npm start
+```
+Aunque por conveniencia se recomienda instalar la libería **Nodemon** y así no tendremos que abrir y cerrar el servidor cada vez que haya algún cambio en el código. Para instalarlo de forma global, tendremos que ejecutar:
+```
+npm install -g nodemon
+```
+y después podremos ejecutar simplemente:
+```
+nodemon
+```
+
+## Frontend
+
+En la parte de frontend, al contrario que en la de backend, no hay nada preparado. Todo se tendrá que hacer desde cero, partiendo de una plantilla básica creada con `create-react-app`. El diseño se tendrá en cuenta, pero no será lo principal, así que recomendamos centrarse en la funcionalidad y utilizar alguna librería de estilos.
