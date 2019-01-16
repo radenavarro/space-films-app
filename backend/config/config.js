@@ -1,9 +1,9 @@
 module.exports = {
   "development": {
     "username": "root",
-    "password": null,
+    "password": "",
     "database": "spacefilm",
-    "host": "192.168.64.2",
+    "host": "localhost",
     "dialect": "mysql",
   }
 };

@@ -26,7 +26,7 @@ module.exports = (passport, user) => {
         }
     ));
 
-    var opts = {}
+    var opts = {};
     opts.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
     opts.secretOrKey = 'sp@c3f1t';
 
@@ -87,4 +87,4 @@ module.exports = (passport, user) => {
         }
     ));
 
-}
+};
