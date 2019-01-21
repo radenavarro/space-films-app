@@ -6,7 +6,12 @@ class Header extends Component{
         return(
             <div>
                 <header>
-                    <span>Texto de header</span>
+                    <nav className="nav">
+                        <div className="row justify-content-end w-100">
+                            <div className="col-1">Login</div>
+                            <div className="col-1">Register</div>
+                        </div>
+                    </nav>
                 </header>
             </div>
         )

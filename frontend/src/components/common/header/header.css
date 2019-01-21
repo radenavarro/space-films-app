@@ -1,3 +1,9 @@
 header{
-    background-color: #156;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 0.6em;
+    background-color: rgba(17, 85, 102, 70);
+    color: white;
 }

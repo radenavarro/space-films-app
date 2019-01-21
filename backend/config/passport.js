@@ -13,7 +13,7 @@ module.exports = (passport, user) => {
     }, 
         function (email, password, cb) {
             return User.findOne({where: { email }})
-            .then(user => {
+            .then((user) => {
                 if (!user || !bCrypt.compareSync(password, user.password)) {
                     return cb(null, false, {message: 'Incorrect email or password.'});
                 }

@@ -1,0 +1,17 @@
+.contenedor{
+    width: 100vw;
+    height: 100vh;
+}
+
+form{
+    display: block;
+    margin: auto;
+    background-color: white;
+    padding: 0.6em;
+    z-index: 1;
+}
+
+form h1{
+    font-family: 'Oswald',sans-serif;
+    font-weight: bolder;
+}

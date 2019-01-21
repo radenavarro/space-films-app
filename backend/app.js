@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sequelize = require('sequelize');
-
+var cors = require('cors');
 var models = require('./models');
 
 var indexRouter = require('./routes/index');
@@ -12,11 +12,12 @@ var moviesRouter = require('./routes/movies');
 var actorsRouter = require('./routes/actors');
 
 var app = express();
-var passport   = require('passport')
-var session    = require('express-session')
-var bodyParser = require('body-parser')
+var passport   = require('passport');
+var session    = require('express-session');
+var bodyParser = require('body-parser');
 
 app.use(cookieParser());
+app.use(cors());
 app.use(session({ secret: 'spacecat', resave: true, saveUninitialized: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
