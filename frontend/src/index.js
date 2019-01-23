@@ -6,7 +6,8 @@ import { BrowserRouter, Switch, Route, NavLink} from 'react-router-dom';
 import './index.css';
 /* COMPONENTES */
 import App from './App';
-import NotFoundError from './components/notFoundError';
+import NotFoundError from './containers/notFoundError';
+import FilmList from './containers/filmList';
 /* REDUX */
 import {createStore} from 'redux';
 import { Provider } from 'react-redux';
@@ -18,6 +19,7 @@ const Routes = (
         <Provider store={Store}>
             <Switch>
                 <Route path="/" component={App} exact />
+                <Route path="/movies" component={FilmList} />
                 <Route path='*' component={NotFoundError} />
             </Switch>
         </Provider>

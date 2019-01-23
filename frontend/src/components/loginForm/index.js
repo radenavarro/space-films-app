@@ -4,8 +4,10 @@ import Header from "../common/header";
 import Footer from "../common/footer";
 import UserService from "../../services/userService";
 import {connect} from "react-redux";
+import {Redirect} from 'react-router-dom';
 
 class LoginForm extends Component{
+    state = {Redirect: false};
     submitForm = async(e) =>{
         e.preventDefault();
         let email = this.getEmail.value;
@@ -14,8 +16,14 @@ class LoginForm extends Component{
         let userService = new UserService();
         let result = await userService.loginUser({email, password});
         this.props.dispatch({type: "LOGIN_USER", data: result.data});
+        this.setState(
+            () => ({Redirect : true})
+        )
     };
     render() {
+        if (this.state.Redirect){
+            return <Redirect to={'/movies'}/>;
+        }
         return(
             <div className="contenedor bg-dark d-flex flex-column justify-content-center">
                 <Header/>
