@@ -13,7 +13,7 @@ class FilmService {
             console.log(token);
             let result = await axios.get(this.endPointLogin, {'headers':{'authorization':'Bearer ' + token}});
             if (result){
-                console.log(result);
+                // console.log(result);
             }
             return result.data;
 

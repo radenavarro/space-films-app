@@ -1,8 +1,21 @@
-const mainReducer = (state=[], action) => {
+const mainReducer = (state={token:null,movies:[]}, action) => {
     switch (action.type) {
         case "LOGIN_USER":
-            window.location = '/movies';
-            return state.concat([action.data]);
+            return {
+                ...state,
+                token: action.data
+            };
+        case "LOGOUT_USER":
+            return {
+                ...state,
+                token: null
+            };
+        case "GET_ALL_FILMS":
+            return {
+                ...state,
+                movies: action.data
+            }
+
         default:
             return state;
     }

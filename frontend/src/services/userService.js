@@ -24,7 +24,7 @@ class UserService {
 
     async registerUser(userObj){
         try {
-            let result = await axios.post(this.endPointLogin, userObj);
+            let result = await axios.post(this.endPointRegister, userObj);
             console.log(result);
             return result;
 
