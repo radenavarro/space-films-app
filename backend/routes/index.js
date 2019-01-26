@@ -3,7 +3,6 @@ var router = express.Router();
 var models = require('../models');
 const jwt = require('jsonwebtoken');
 var passport = require('passport');
-const moment = require('moment');
 
 router.post('/login', passport.authenticate('jwt-login', { session: false }), (req, res) => {
   const token = jwt.sign(req.user.id, 'sp@c3f1t');

@@ -1,12 +1,38 @@
 .filmContainer{
     flex: 0 1 256px;
     width: 256px;
+    /*padding: 0.2em;*/
+    border: 1px solid black;
+    border-radius: 0.8em;
+    overflow: hidden;
+}
+
+.filmRow{
+    margin-top: 6vh;
+}
+
+.filmRow:first-child{
+    margin-top: 12vh;
 }
 
 .filmRow{
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.filmTitle{
+    padding: 0.2em;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed black;
+    background-color: whitesmoke;
+}
+
+.filmTitle i{
+    line-height: 1.4em;
+    cursor: pointer;
+    letter-spacing: 0.4em;
 }
 
 img{

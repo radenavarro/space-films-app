@@ -4,10 +4,11 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route, NavLink} from 'react-router-dom';
 /* CSS */
 import './index.css';
-/* COMPONENTES */
+/* CONTAINERS */
 import App from './App';
 import NotFoundError from './containers/notFoundError';
 import FilmList from './containers/filmList';
+import WatchList from "./containers/filmList/watchList";
 /* REDUX */
 import {createStore} from 'redux';
 import { Provider } from 'react-redux';
@@ -20,6 +21,7 @@ const Routes = (
             <Switch>
                 <Route path="/" component={App} exact />
                 <Route path="/movies" component={FilmList} />
+                <Route path="/watchlist" component={WatchList} />
                 <Route path='*' component={NotFoundError} />
             </Switch>
         </Provider>

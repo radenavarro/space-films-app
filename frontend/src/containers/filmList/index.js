@@ -3,6 +3,8 @@ import FilmService from "../../services/filmService";
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import "./filmList.css";
+import Header from "../../components/common/header";
+import Footer from "../../components/common/footer";
 
 class FilmList extends Component{
     state = {
@@ -18,9 +20,7 @@ class FilmList extends Component{
     componentWillMount() {
         if (localStorage.getItem('auth')){
             console.log("Tienes permisos");
-            // TODO Sacar user id del token y el usuario de la BD
             // Get films
-
             this.getAllFilms();
 
         } else{
@@ -40,18 +40,30 @@ class FilmList extends Component{
         let rows = [];
         let counter = 0;
         console.log(this.props.movies.length);
-        for (let i = 0; i < this.props.movies.length; i++){
+        for (let i = 0; i < (this.props.movies.length/this.moviesPerRow); i++){
             let filmContainers = [];
             for (let j = 0; j < this.moviesPerRow && counter < this.props.movies.length; j++) {
+                // console.log("Contador: " + counter + " -- ID: " + this.props.movies[counter].id + " -- Nº PELIS: "+ this.props.movies.length + " -- i: " + i);
                 filmContainers.push(
-                    <div className={"filmContainer"} key={`film${counter}`}>
-                        <div className={"filmTitle"}>{this.props.movies[counter].title}</div>
-                        <div className={"filmPoster"}><img src={`images/posters/${this.props.movies[counter].poster}`} alt={`poster${counter}`}></img></div>
-                    </div>)
+                    // Al iterar las veces que indique moviesPerRow, puede que al final no hayan películas. Me ayudo de counter para no sacar nada en ese caso
+                    this.props.movies[counter] ?
+                        <div className={"filmContainer"} key={`film${counter}`}>
+                            <div className={"filmTitle"}>
+                                <span>{this.props.movies[counter].title}</span>
+                                <span>
+                                    <i className="fas fa-bars" title="Detalle"></i>
+                                    <i className="fas fa-bookmark" title="Añadir a watchlist"></i>
+                                </span>
+
+                            </div>
+                            <div className={"filmPoster"}>
+                                <img src={`images/posters/${this.props.movies[counter].poster}`} alt={`poster${counter}`}></img>
+                            </div>
+                        </div> : "");
                 counter++;
             }
 
-            if(counter < this.props.movies.length) rows.push(<div className={"filmRow"} key={`row${i}`}>{filmContainers}</div>)
+            if(counter <= this.props.movies.length) rows.push(<div className={"filmRow"} key={`row${i}`}>{filmContainers}</div>)
         }
         return rows;
     }
@@ -62,10 +74,14 @@ class FilmList extends Component{
         }
 
         return(
-
-            <div className="container-fluid">
-                {this.props.movies ? this.filmRowBuilder() : ""}
+            <div>
+                <Header/>
+                    <div className="container-fluid">
+                        {this.props.movies ? this.filmRowBuilder() : ""}
+                    </div>
+                <Footer/>
             </div>
+
         )
     }
 }

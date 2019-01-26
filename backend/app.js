@@ -10,6 +10,7 @@ var models = require('./models');
 var indexRouter = require('./routes/index');
 var moviesRouter = require('./routes/movies');
 var actorsRouter = require('./routes/actors');
+var usersRouter = require('./routes/users');
 
 var app = express();
 var passport   = require('passport');
@@ -34,6 +35,7 @@ require('./config/passport')(passport, models.User);
 // Routing
   // Public route
 app.use('/', indexRouter);
+app.use('/user', usersRouter);
 
   // Protected route (login required)
 app.use('/movies', passport.authenticate('jwt', { session: false }), moviesRouter);
