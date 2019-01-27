@@ -36,5 +36,21 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/:id', (req, res)=>{
+    models.Movie.findOne({
+        where : {id : req.params.id},
+        include : [
+            {
+                model: models.Actor
+            }
+        ]
+    })
+        .then(movie => {
+            res.status(200).json({
+                error: false,
+                data: movie
+            })
+        })
+})
 
 module.exports = router;

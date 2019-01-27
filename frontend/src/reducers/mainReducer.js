@@ -14,7 +14,12 @@ const mainReducer = (state={token:null,movies:[]}, action) => {
             return {
                 ...state,
                 movies: action.data
-            }
+            };
+        // case "ADD_TO_WATCHLIST":
+        //     return{
+        //         ...state,
+        //         watchList : [].push(action.data)
+        //     };
 
         default:
             return state;

@@ -8,7 +8,7 @@ import './index.css';
 import App from './App';
 import NotFoundError from './containers/notFoundError';
 import FilmList from './containers/filmList';
-import WatchList from "./containers/filmList/watchList";
+import WatchList from "./containers/watchList";
 /* REDUX */
 import {createStore} from 'redux';
 import { Provider } from 'react-redux';

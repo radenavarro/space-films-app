@@ -20,6 +20,13 @@ class FilmList extends Component{
     componentWillMount() {
         if (localStorage.getItem('auth')){
             console.log("Tienes permisos");
+            // Watchlist en localstorage para que no se pierda tras deslogear
+            if (localStorage.getItem('watchlist')){
+                if (localStorage.getItem('watchlist').length === 0) localStorage.setItem('watchlist', '');
+            } else {
+                localStorage.setItem('watchlist', '')
+            }
+
             // Get films
             this.getAllFilms();
 
@@ -33,6 +40,30 @@ class FilmList extends Component{
         let filmsObj = await filmService.getAllFilms();
         console.log(filmsObj);
         this.props.dispatch({type: "GET_ALL_FILMS", data: filmsObj})
+    }
+
+    async addToWatchlist(){
+        // Watchlist en localstorage para que no se pierda al deslogear
+        let arrTotalFilmsInWatchlist = [];
+        let strFilmsStored = localStorage.getItem('watchlist');
+        let filmService = new FilmService();
+        let objFilmToWatchlist = await filmService.getFilm(this);
+        // console.log(objFilmToWatchlist.data);
+
+        if (!strFilmsStored || strFilmsStored === ""){
+            arrTotalFilmsInWatchlist.push(objFilmToWatchlist.data);
+        } else{
+            arrTotalFilmsInWatchlist = JSON.parse(strFilmsStored);
+            // Validar que no se añada una película por duplicado
+            let filtered = arrTotalFilmsInWatchlist.filter(val=>val.id === objFilmToWatchlist.data.id);
+            if (filtered.length > 0){
+                console.log("LA PELICULA YA ESTÁ EN LOCALSTORAGE")
+            } else{
+                arrTotalFilmsInWatchlist.push(objFilmToWatchlist.data);
+            }
+        }
+
+        localStorage.setItem('watchlist', JSON.stringify(arrTotalFilmsInWatchlist));
     }
 
     filmRowBuilder(){
@@ -52,7 +83,7 @@ class FilmList extends Component{
                                 <span>{this.props.movies[counter].title}</span>
                                 <span>
                                     <i className="fas fa-bars" title="Detalle"></i>
-                                    <i className="fas fa-bookmark" title="Añadir a watchlist"></i>
+                                    <i className="fas fa-bookmark" title="Añadir a watchlist" onClick={this.addToWatchlist.bind(this.props.movies[counter].id)}></i>
                                 </span>
 
                             </div>
