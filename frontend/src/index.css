@@ -16,3 +16,14 @@ code {
 html{
   height: 100%;
 }
+
+a:link, a:visited{
+  color: aquamarine;
+  transition: color 0.3s;
+}
+
+a:hover{
+  color: lightsteelblue;
+  text-decoration: none;
+  transition: color 0.3s;
+}

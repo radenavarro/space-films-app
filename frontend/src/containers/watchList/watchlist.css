@@ -1,0 +1,31 @@
+.containerMovies{
+    margin: 10vh auto;
+}
+
+.movieCard{
+    display: flex;
+    flex-flow: row nowrap;
+    width: 40vw;
+    height: 128px;
+    margin: 1em auto 0 auto;
+    background-color: whitesmoke;
+}
+
+.picture{
+    flex: 0 1 20%;
+    height: inherit;
+}
+
+.movieCard img{
+    display: block;
+    height: 100%;
+    width: auto;
+    margin: 0 auto;
+}
+
+.infoSection{
+    flex: 0 1 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2em;
+}

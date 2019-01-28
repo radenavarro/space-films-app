@@ -28,7 +28,7 @@ class RegisterForm extends Component{
         }
         return(
             <div className="contenedor bg-dark d-flex flex-column justify-content-center">
-                <Header/>
+                <Header />
                 <div className="login d-flex">
                     <form onSubmit={this.submitForm}>
                         <div className="form-group">

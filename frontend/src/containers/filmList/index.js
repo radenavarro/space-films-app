@@ -42,7 +42,7 @@ class FilmList extends Component{
             this.state.Redirect = true;
         }
     }
-
+    // TODO: Eliminar y reemplazar
     static getIdFromToken(){
         let token = localStorage.getItem('auth');
         let base64Url = token.split('.')[1];
@@ -56,7 +56,7 @@ class FilmList extends Component{
         console.log(filmsObj);
         this.props.dispatch({type: "GET_ALL_FILMS", data: filmsObj})
     }
-    
+
     addToWatchlist(){
         // WATCHLIST EN BD
         let filmService = new FilmService();

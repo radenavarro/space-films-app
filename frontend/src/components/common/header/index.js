@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './header.css';
 import UserService from "../../../services/userService";
 import {NavLink} from "react-router-dom";
-import {Redirect} from 'react-router-dom';
 
 class Header extends Component{
     constructor(...props){
@@ -16,7 +15,7 @@ class Header extends Component{
                 let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
                 return JSON.parse(window.atob(base64));
             })();
-            console.log("ID DE USUARIO : " + this.userId);
+            // console.log("ID DE USUARIO : " + this.userId);
             this.getUserName();
         }
 
@@ -36,6 +35,8 @@ class Header extends Component{
     }
 
     render() {
+        const {watchlist} = this.props;
+        // console.log("HEADER " + watchlist);
         return(
             <div>
                 <header>
@@ -45,7 +46,8 @@ class Header extends Component{
                                 <div className="col-2">SpaceFilms</div>
                                 <div className="col-10">
                                     <div className="row justify-content-end">
-                                        <div className="col-2 text-center">{this.userName ? this.userName : ""}</div>
+                                        {watchlist ? <div className="col-2 text-center"><NavLink to="/movies">Atrás</NavLink></div> : ""}
+                                        <div className="col-2 text-center">User: {this.userName ? this.userName : ""}</div>
                                         <div className="col-2 text-center"><NavLink to="/watchlist">Mi WatchList</NavLink></div>
                                         <div className="col-2 text-center"><NavLink to={"#"} onClick={this.logout.bind(this)}>Desconectar</NavLink></div>
                                     </div>

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './watchlist.css';
 import {NavLink} from "react-router-dom";
 import {Redirect} from 'react-router-dom';
 import Header from "../../components/common/header";
@@ -14,19 +15,42 @@ class WatchList extends Component{
     async componentWillMount() {
         let filmService = new FilmService();
         let filmsInWL = await filmService.getFilmsInWatchlist();
+        console.log(filmsInWL.data);
         if (filmsInWL){
-            console.log(filmsInWL);
+            this.props.dispatch({type: "ADD_TO_WATCHLIST", data: filmsInWL.data})
         }
     }
 
+    filmRowBuilder(){
+        // Este método se ha creado por la imposibilidad de utilizar bucles en render
+        let rows = [];
+        let filmContainers = [];
+        for (let i = 0; i < (this.props.moviesInWatchlist.length); i++){
+            filmContainers.push(
+                <div className="movieCard" key={this.props.moviesInWatchlist[i].Movie.id}>
+                    <div className="picture">
+                        <img src={`images/posters/${this.props.moviesInWatchlist[i].Movie.poster}`} alt={`poster${i}`}></img>
+                    </div>
+                    <div className="infoSection">
+                        <div className="movieTitle">Título: {this.props.moviesInWatchlist[i].Movie.title}</div>
+                        <i className="fas fa-times"></i>
+                    </div>
+                </div>
+            )
+        }
+        rows.push(filmContainers);
+        return rows;
+    }
+
     render() {
-        console.log(this.props);
+        // console.log(this.props.moviesInWatchlist);
+        const isInWatchlist = true;
         return(
             <div>
-                <Header/>
+                <Header watchlist={isInWatchlist}/>
                 <div className="container-fluid">
-                    <div className="row">
-
+                    <div className="flex-column containerMovies">
+                        {this.props.moviesInWatchlist ? this.filmRowBuilder() : ""}
                     </div>
                 </div>
                 <Footer/>
@@ -36,11 +60,9 @@ class WatchList extends Component{
 }
 
 const mapStateToProps = (state)=>{
-    return{
-        // moviesFiltered : (state.movies.data).filter((movie) => {
-        //     return movie.id === state.watchList.id;
-        // })
-        moviesInWatchlist : state.movies.data
+    // console.log("STATE " + JSON.stringify(state.watchList));
+    return {
+        moviesInWatchlist : state.watchList
     }
 };
 
