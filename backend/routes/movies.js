@@ -51,6 +51,6 @@ router.get('/:id', (req, res)=>{
                 data: movie
             })
         })
-})
+});
 
 module.exports = router;

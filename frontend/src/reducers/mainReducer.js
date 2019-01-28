@@ -1,4 +1,4 @@
-const mainReducer = (state={token:null,movies:[]}, action) => {
+const mainReducer = (state={token:null,movies:[], watchList: []}, action) => {
     switch (action.type) {
         case "LOGIN_USER":
             return {
@@ -15,11 +15,12 @@ const mainReducer = (state={token:null,movies:[]}, action) => {
                 ...state,
                 movies: action.data
             };
-        // case "ADD_TO_WATCHLIST":
-        //     return{
-        //         ...state,
-        //         watchList : [].push(action.data)
-        //     };
+        case "ADD_TO_WATCHLIST":
+            // console.log("ESTADO PREVIO -> " + JSON.stringify(state.watchList) + " PARA INSERTAR -> " + JSON.stringify(action.data));
+            return{
+                ...state,
+                watchList : state.watchList.concat(action.data)
+            };
 
         default:
             return state;

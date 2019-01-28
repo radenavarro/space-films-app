@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var moviesRouter = require('./routes/movies');
 var actorsRouter = require('./routes/actors');
 var usersRouter = require('./routes/users');
+var watchlistRouter = require('./routes/watchlists');
 
 var app = express();
 var passport   = require('passport');
@@ -40,6 +41,7 @@ app.use('/user', usersRouter);
   // Protected route (login required)
 app.use('/movies', passport.authenticate('jwt', { session: false }), moviesRouter);
 app.use('/actors', passport.authenticate('jwt', { session: false }), actorsRouter);
+app.use('/watchlist', passport.authenticate('jwt', { session: false }), watchlistRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

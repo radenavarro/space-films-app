@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models');
 
-router.get('/:id', (req, res, next)=>{
+router.get('/:id', (req, res)=>{
     try {
         (async()=>{
             let user = await models.User.findOne({where : {id : req.params.id}});

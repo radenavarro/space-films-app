@@ -3,18 +3,28 @@ import {NavLink} from "react-router-dom";
 import {Redirect} from 'react-router-dom';
 import Header from "../../components/common/header";
 import Footer from "../../components/common/footer";
+import {connect} from "react-redux";
+import FilmService from "../../services/filmService";
 
 class WatchList extends Component{
     constructor(...props){
         super(...props);
     }
 
+    componentWillMount() {
+        let filmService = new FilmService();
+        let filmsInWL = filmService.getFilmsInWatchlist();
+    }
+
     render() {
+        console.log(this.props);
         return(
             <div>
                 <Header/>
                 <div className="container-fluid">
+                    <div className="row">
 
+                    </div>
                 </div>
                 <Footer/>
             </div>
@@ -22,4 +32,15 @@ class WatchList extends Component{
     }
 }
 
-export default WatchList;
+const mapStateToProps = (state)=>{
+    return{
+        // moviesFiltered : (state.movies.data).filter((movie) => {
+        //     return movie.id === state.watchList.id;
+        // })
+        moviesFiltered : ""
+    }
+};
+
+
+
+export default connect(mapStateToProps)(WatchList);

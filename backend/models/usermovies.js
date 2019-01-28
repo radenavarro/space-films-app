@@ -6,6 +6,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   UserMovies.associate = function(models) {
     // associations can be defined here
+    UserMovies.belongsTo(models.Movie, {
+      otherKey: 'movieId',
+    });
+    UserMovies.belongsTo(models.User, {
+      otherKey: 'userId',
+    });
   };
   return UserMovies;
 };

@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import "./filmList.css";
 import Header from "../../components/common/header";
 import Footer from "../../components/common/footer";
+import UserService from "../../services/userService";
 
 class FilmList extends Component{
     state = {
@@ -19,13 +20,21 @@ class FilmList extends Component{
 
     componentWillMount() {
         if (localStorage.getItem('auth')){
+            // Obtener idUser del payload
+            this.userId = (function () {
+                let token = localStorage.getItem('auth');
+                let base64Url = token.split('.')[1];
+                let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                return JSON.parse(window.atob(base64));
+            })();
+            console.log("ID DE USUARIO : " + this.userId);
             console.log("Tienes permisos");
             // Watchlist en localstorage para que no se pierda tras deslogear
-            if (localStorage.getItem('watchlist')){
-                if (localStorage.getItem('watchlist').length === 0) localStorage.setItem('watchlist', '');
-            } else {
-                localStorage.setItem('watchlist', '')
-            }
+            // if (localStorage.getItem('watchlist')){
+            //     if (localStorage.getItem('watchlist').length === 0) localStorage.setItem('watchlist', '');
+            // } else {
+            //     localStorage.setItem('watchlist', '')
+            // }
 
             // Get films
             this.getAllFilms();
@@ -35,6 +44,13 @@ class FilmList extends Component{
         }
     }
 
+    static getIdFromToken(){
+        let token = localStorage.getItem('auth');
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        return JSON.parse(window.atob(base64));
+    }
+
     async getAllFilms(){
         let filmService = new FilmService();
         let filmsObj = await filmService.getAllFilms();
@@ -42,28 +58,32 @@ class FilmList extends Component{
         this.props.dispatch({type: "GET_ALL_FILMS", data: filmsObj})
     }
 
-    async addToWatchlist(){
+    // TODO: watchlist en BD
+    addToWatchlist(){
+        // WATCHLIST EN BD
+        this[0].props.dispatch({type: "ADD_TO_WATCHLIST", data: {userId: FilmList.getIdFromToken(), movieId: this[1]}})
+
         // Watchlist en localstorage para que no se pierda al deslogear
-        let arrTotalFilmsInWatchlist = [];
-        let strFilmsStored = localStorage.getItem('watchlist');
-        let filmService = new FilmService();
-        let objFilmToWatchlist = await filmService.getFilm(this);
-        // console.log(objFilmToWatchlist.data);
-
-        if (!strFilmsStored || strFilmsStored === ""){
-            arrTotalFilmsInWatchlist.push(objFilmToWatchlist.data);
-        } else{
-            arrTotalFilmsInWatchlist = JSON.parse(strFilmsStored);
-            // Validar que no se añada una película por duplicado
-            let filtered = arrTotalFilmsInWatchlist.filter(val=>val.id === objFilmToWatchlist.data.id);
-            if (filtered.length > 0){
-                console.log("LA PELICULA YA ESTÁ EN LOCALSTORAGE")
-            } else{
-                arrTotalFilmsInWatchlist.push(objFilmToWatchlist.data);
-            }
-        }
-
-        localStorage.setItem('watchlist', JSON.stringify(arrTotalFilmsInWatchlist));
+        // let arrTotalFilmsInWatchlist = [];
+        // let strFilmsStored = localStorage.getItem('watchlist');
+        // let filmService = new FilmService();
+        // let objFilmToWatchlist = await filmService.getFilm(this);
+        // // console.log(objFilmToWatchlist.data);
+        //
+        // if (!strFilmsStored || strFilmsStored === ""){
+        //     arrTotalFilmsInWatchlist.push(objFilmToWatchlist.data);
+        // } else{
+        //     arrTotalFilmsInWatchlist = JSON.parse(strFilmsStored);
+        //     // Validar que no se añada una película por duplicado
+        //     let filtered = arrTotalFilmsInWatchlist.filter(val=>val.id === objFilmToWatchlist.data.id);
+        //     if (filtered.length > 0){
+        //         console.log("LA PELICULA YA ESTÁ EN LOCALSTORAGE")
+        //     } else{
+        //         arrTotalFilmsInWatchlist.push(objFilmToWatchlist.data);
+        //     }
+        // }
+        //
+        // localStorage.setItem('watchlist', JSON.stringify(arrTotalFilmsInWatchlist));
     }
 
     filmRowBuilder(){
@@ -83,10 +103,8 @@ class FilmList extends Component{
                                 <span>{this.props.movies[counter].title}</span>
                                 <span>
                                     <i className="fas fa-bars" title="Detalle"></i>
-                                    <i className="fas fa-bookmark" title="Añadir a watchlist" onClick={this.addToWatchlist.bind(this.props.movies[counter].id)}></i>
-                                </span>
-
-                            </div>
+                                    <i className="fas fa-bookmark" title="Añadir a watchlist" onClick={this.addToWatchlist.bind([this, this.props.movies[counter].id])}></i>
+                                </span>                            </div>
                             <div className={"filmPoster"}>
                                 <img src={`images/posters/${this.props.movies[counter].poster}`} alt={`poster${counter}`}></img>
                             </div>
@@ -103,7 +121,6 @@ class FilmList extends Component{
         if (this.state.Redirect === true){
             return <Redirect to={"/"}/>
         }
-
         return(
             <div>
                 <Header/>
@@ -118,35 +135,12 @@ class FilmList extends Component{
 }
 
 const mapStateToProps=(state) =>{
-    let arr = state.movies.data;
-    console.log(arr)
+    // watchlist todavía no se usa en el componente. Se añade porque más adelante se validará qué id de películas del watchlist
+    // coincide con las películas de la lista, para mostrar el icono de bookmark correspondiente de otro color
     return{
-        movies : state.movies.data
+        movies : state.movies.data,
+        watchlist : state.watchList.data
     }
-    // if(state.length > 0){
-    //     return{
-    //         movies: state.movies.data
-    //     }
-    // }
-    // return {movies: []}
-}
-
-// const mapDispatchToProps=(dispatch)=>{
-//     console.log("Entra en map");
-//
-//     return{
-//         getFilms: () =>{
-//             console.log("llama a getFilms");
-//             let filmService = new FilmService();
-//             return filmService.getAllFilms().then(res=>{
-//                 console.log("entra disptach"+ JSON.stringify(res));
-//                 // dispatch(loadPosts(res))
-//             })
-//                 .catch((error)=>{
-//                     console.error(error);
-//                 })
-//         }
-//     }
-// }
+};
 
 export default connect(mapStateToProps)(FilmList);

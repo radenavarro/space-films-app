@@ -5,6 +5,7 @@ class FilmService {
 
     constructor() {
         this.endPointMovies = `${GlobalData.base_endpoint}/movies`;
+        this.endPointWatchlist = `${GlobalData.base_endpoint}/watchlist`;
     }
 
     async getAllFilms(){
@@ -30,6 +31,16 @@ class FilmService {
             return result.data;
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    async getFilmsInWatchlist(){
+        try {
+            let token = localStorage.getItem('auth');
+            let result = await axios.get(`${this.endPointWatchlist}`, {'headers':{'authorization':'Bearer ' + token}});
+            return result.data;
+        } catch (e) {
+            console.error(e);
         }
     }
 }
