@@ -11,9 +11,12 @@ class WatchList extends Component{
         super(...props);
     }
 
-    componentWillMount() {
+    async componentWillMount() {
         let filmService = new FilmService();
-        let filmsInWL = filmService.getFilmsInWatchlist();
+        let filmsInWL = await filmService.getFilmsInWatchlist();
+        if (filmsInWL){
+            console.log(filmsInWL);
+        }
     }
 
     render() {
@@ -37,7 +40,7 @@ const mapStateToProps = (state)=>{
         // moviesFiltered : (state.movies.data).filter((movie) => {
         //     return movie.id === state.watchList.id;
         // })
-        moviesFiltered : ""
+        moviesInWatchlist : state.movies.data
     }
 };
 

@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import "./filmList.css";
 import Header from "../../components/common/header";
 import Footer from "../../components/common/footer";
-import UserService from "../../services/userService";
 
 class FilmList extends Component{
     state = {
@@ -57,11 +56,15 @@ class FilmList extends Component{
         console.log(filmsObj);
         this.props.dispatch({type: "GET_ALL_FILMS", data: filmsObj})
     }
-
-    // TODO: watchlist en BD
+    
     addToWatchlist(){
         // WATCHLIST EN BD
-        this[0].props.dispatch({type: "ADD_TO_WATCHLIST", data: {userId: FilmList.getIdFromToken(), movieId: this[1]}})
+        let filmService = new FilmService();
+        let result = filmService.insertIntoWatchlist(this[1]);
+        if (result){
+            alert("Película añadida a tu lista");
+            this[0].props.dispatch({type: "ADD_TO_WATCHLIST", data: {userId: FilmList.getIdFromToken(), movieId: this[1]}})
+        }
 
         // Watchlist en localstorage para que no se pierda al deslogear
         // let arrTotalFilmsInWatchlist = [];

@@ -43,6 +43,16 @@ class FilmService {
             console.error(e);
         }
     }
+
+    async insertIntoWatchlist(movieId){
+        try {
+            let token = localStorage.getItem('auth');
+            let result = await axios.get(`${this.endPointWatchlist}/${movieId}`, {'headers':{'authorization':'Bearer ' + token}});
+            return result.data;
+        } catch (e) {
+            console.error(e);
+        }
+    }
 }
 
 export default FilmService;
