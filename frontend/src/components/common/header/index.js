@@ -55,8 +55,8 @@ class Header extends Component{
                                 <div className="col-2">SpaceFilms</div>
                                 <div className="col-10">
                                     <div className="row justify-content-end">
-                                        <div className="col-2 text-center">Iniciar sesión</div>
-                                        <div className="col-2 text-center">Registro</div>
+                                        <div className="col-2 text-center"><NavLink to="/" >Iniciar sesión</NavLink></div>
+                                        <div className="col-2 text-center"><NavLink to="/register">Registro</NavLink></div>
                                     </div>
                                 </div>
                             </div>

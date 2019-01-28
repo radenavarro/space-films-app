@@ -9,6 +9,7 @@ import App from './App';
 import NotFoundError from './containers/notFoundError';
 import FilmList from './containers/filmList';
 import WatchList from "./containers/watchList";
+import RegisterContainer from "./containers/registerContainer";
 /* REDUX */
 import {createStore} from 'redux';
 import { Provider } from 'react-redux';
@@ -20,6 +21,7 @@ const Routes = (
         <Provider store={Store}>
             <Switch>
                 <Route path="/" component={App} exact />
+                <Route path="/register" component={RegisterContainer} />
                 <Route path="/movies" component={FilmList} />
                 <Route path="/watchlist" component={WatchList} />
                 <Route path='*' component={NotFoundError} />
