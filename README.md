@@ -1,5 +1,20 @@
 # Fullstack test for Spacefit
+Funcionalidad implementada:
+- Login
+- Registro
+- Recibir lista de películas, guardarlas en el store y mostrarlas
+- Añadir películas a watchlist desde la lista de películas totales
+- Mostrar página de error 404 (muy básica) ante una ruta desconocida
+- Sección watchlist que muestra las películas agregadas por el usuario
+- Logout
 
+Funcionalidad por implementar:
+- Eliminar películas de watchlist
+- Mostrar detalle de cada película
+- Filtrado de películas
+- Mejoras visuales
+
+#
 El objetivo de esta prueba es comprobar que el candidato tiene los conocimientos básicos requeridos para incorporarse como desarrollador Fullstack a Spacefit.
 
 El stack de esta prueba es:
