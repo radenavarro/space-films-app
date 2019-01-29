@@ -8,14 +8,13 @@ class Header extends Component{
         super(...props);
         if (localStorage.getItem('auth')){
             this.isLogged = true;
-            // Obtener id del payload
+            // Obtener id del payload. Sustituír esta parte mas adelante
             this.userId = (function () {
                 let token = localStorage.getItem('auth');
                 let base64Url = token.split('.')[1];
                 let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
                 return JSON.parse(window.atob(base64));
             })();
-            // console.log("ID DE USUARIO : " + this.userId);
             this.getUserName();
         }
 
@@ -36,7 +35,7 @@ class Header extends Component{
 
     render() {
         const {watchlist} = this.props;
-        // console.log("HEADER " + watchlist);
+
         return(
             <div>
                 <header>

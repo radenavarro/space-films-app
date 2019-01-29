@@ -6,7 +6,7 @@ class Footer extends Component{
         return(
             <div>
                 <footer>
-                    <span>Texto de footer</span>
+                    <span>&copy; Spacefilms - 2019</span>
                 </footer>
             </div>
         )

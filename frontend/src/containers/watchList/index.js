@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import './watchlist.css';
-import {NavLink} from "react-router-dom";
-import {Redirect} from 'react-router-dom';
 import Header from "../../components/common/header";
 import Footer from "../../components/common/footer";
 import {connect} from "react-redux";
@@ -43,7 +41,6 @@ class WatchList extends Component{
     }
 
     render() {
-        // console.log(this.props.moviesInWatchlist);
         const isInWatchlist = true;
         return(
             <div>
@@ -60,7 +57,6 @@ class WatchList extends Component{
 }
 
 const mapStateToProps = (state)=>{
-    // console.log("STATE " + JSON.stringify(state.watchList));
     return {
         moviesInWatchlist : state.watchList
     }

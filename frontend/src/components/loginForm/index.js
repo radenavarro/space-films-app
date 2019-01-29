@@ -21,6 +21,7 @@ class LoginForm extends Component{
         )
     };
     render() {
+        // Redirección tras logear
         if (this.state.Redirect){
             return <Redirect to={'/movies'}/>;
         }

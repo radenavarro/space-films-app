@@ -12,7 +12,6 @@ class UserService {
     async loginUser(userObj){
         try {
             let result = await axios.post(this.endPointLogin, userObj);
-            console.log(result);
             if (result){
                 localStorage.setItem('auth', result.data.data);
             }
@@ -37,7 +36,6 @@ class UserService {
     async getUsernameById(userId){
         try {
             let result = await axios.get(`${this.endPointUser}/${userId}`);
-            // console.log("RESULT " + JSON.stringify(result));
             return result.data.data.name;
         } catch (error) {
             console.error(error);

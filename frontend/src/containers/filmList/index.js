@@ -26,14 +26,6 @@ class FilmList extends Component{
                 let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
                 return JSON.parse(window.atob(base64));
             })();
-            console.log("ID DE USUARIO : " + this.userId);
-            console.log("Tienes permisos");
-            // Watchlist en localstorage para que no se pierda tras deslogear
-            // if (localStorage.getItem('watchlist')){
-            //     if (localStorage.getItem('watchlist').length === 0) localStorage.setItem('watchlist', '');
-            // } else {
-            //     localStorage.setItem('watchlist', '')
-            // }
 
             // Get films
             this.getAllFilms();
@@ -65,28 +57,6 @@ class FilmList extends Component{
             alert("Película añadida a tu lista");
             this[0].props.dispatch({type: "ADD_TO_WATCHLIST", data: {userId: FilmList.getIdFromToken(), movieId: this[1]}})
         }
-
-        // Watchlist en localstorage para que no se pierda al deslogear
-        // let arrTotalFilmsInWatchlist = [];
-        // let strFilmsStored = localStorage.getItem('watchlist');
-        // let filmService = new FilmService();
-        // let objFilmToWatchlist = await filmService.getFilm(this);
-        // // console.log(objFilmToWatchlist.data);
-        //
-        // if (!strFilmsStored || strFilmsStored === ""){
-        //     arrTotalFilmsInWatchlist.push(objFilmToWatchlist.data);
-        // } else{
-        //     arrTotalFilmsInWatchlist = JSON.parse(strFilmsStored);
-        //     // Validar que no se añada una película por duplicado
-        //     let filtered = arrTotalFilmsInWatchlist.filter(val=>val.id === objFilmToWatchlist.data.id);
-        //     if (filtered.length > 0){
-        //         console.log("LA PELICULA YA ESTÁ EN LOCALSTORAGE")
-        //     } else{
-        //         arrTotalFilmsInWatchlist.push(objFilmToWatchlist.data);
-        //     }
-        // }
-        //
-        // localStorage.setItem('watchlist', JSON.stringify(arrTotalFilmsInWatchlist));
     }
 
     filmRowBuilder(){
@@ -97,7 +67,6 @@ class FilmList extends Component{
         for (let i = 0; i < (this.props.movies.length/this.moviesPerRow); i++){
             let filmContainers = [];
             for (let j = 0; j < this.moviesPerRow && counter < this.props.movies.length; j++) {
-                // console.log("Contador: " + counter + " -- ID: " + this.props.movies[counter].id + " -- Nº PELIS: "+ this.props.movies.length + " -- i: " + i);
                 filmContainers.push(
                     // Al iterar las veces que indique moviesPerRow, puede que al final no hayan películas. Me ayudo de counter para no sacar nada en ese caso
                     this.props.movies[counter] ?

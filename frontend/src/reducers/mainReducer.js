@@ -18,14 +18,11 @@ const mainReducer = (state={token:null,movies:[], watchList: []}, action) => {
         case "GET_FROM_WATCHLIST":
             return {
                 ...state,
-                movies: action.data
-            }
+                watchList: action.data
+            };
         case "ADD_TO_WATCHLIST":
-            // console.log("ESTADO PREVIO -> " + JSON.stringify(state.watchList) + " PARA INSERTAR -> " + JSON.stringify(action.data));
-            // console.log("ACTION " + action.data)
             return{
                 ...state,
-                // watchList : state.watchList.concat(action.data)
                 watchList: action.data
             };
 

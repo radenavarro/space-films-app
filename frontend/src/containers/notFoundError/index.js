@@ -12,7 +12,6 @@ class NotFoundError extends Component{
                         <NavLink to={"/"}>Vuelve</NavLink>
                     </div>
                 </div>
-
             </div>
         )
     }
